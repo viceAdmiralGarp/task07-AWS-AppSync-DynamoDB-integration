@@ -1,0 +1,17 @@
+{
+  "name": "task07-aws-appsync-dynamodb-integration",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/viceAdmiralGarp/task07-AWS-AppSync-DynamoDB-integration.git"
+  },
+  "private": true,
+  "dependencies": {
+    "@aws-appsync/utils": "^1.12.0"
+  }
+}
