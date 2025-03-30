@@ -14,10 +14,16 @@ export function response(ctx) {
     }
 
     const payload = JSON.parse(ctx.result.payLoad);
+
     return {
         id: ctx.result.id,
-        userId: ctx.result.userId,
+        userId: parseInt(ctx.result.userId),
         createdAt: ctx.result.createdAt,
-        payLoad: payload
+        payLoad: {
+            meta: {
+                key1: payload.meta.key1,
+                key2: payload.meta.key2
+            }
+        }
     };
 }
