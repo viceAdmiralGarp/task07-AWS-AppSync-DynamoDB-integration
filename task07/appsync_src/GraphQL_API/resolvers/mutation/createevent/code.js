@@ -6,18 +6,15 @@ export function request(ctx) {
 
     return {
         operation: 'PutItem',
-        key: { id: { S: id } },
-        attributeValues: {
-            userId: { N: ctx.args.userId.toString() },
-            createdAt: { S: createdAt },
-            payLoad: { S: ctx.args.payLoad }
-        }
+        key: util.dynamodb.toMapValues({ id }),
+        attributeValues: util.dynamodb.toMapValues({
+            userId: ctx.args.userId,
+            createdAt,
+            payLoad: ctx.args.payLoad
+        })
     };
 }
 
 export function response(ctx) {
-    return {
-        id: ctx.result.id,
-        createdAt: ctx.result.createdAt
-    };
+    return ctx.result;
 }
