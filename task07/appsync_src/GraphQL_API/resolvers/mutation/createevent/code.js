@@ -1,8 +1,5 @@
-/**
- * Sends a request to the attached data source
- * @param {import('@aws-appsync/utils').Context} ctx the context
- * @returns {*} the request
- */
+import { util } from '@aws-appsync/utils';
+
 export function request(ctx) {
     const { userId, payLoad } = ctx.args;
     const id = util.autoId();
@@ -10,26 +7,18 @@ export function request(ctx) {
 
     return {
         operation: 'PutItem',
-        key: {
-            id: { S: id }
-        },
-        attributeValues: {
-            userId: { N: userId.toString() },
-            createdAt: { S: createdAt },
-            payLoad: { S: payLoad }
-        }
+        key: util.dynamodb.toMapValues({ id }),
+        attributeValues: util.dynamodb.toMapValues({
+            userId,
+            createdAt,
+            payLoad
+        })
     };
 }
 
-/**
- * Returns the resolver result
- * @param {import('@aws-appsync/utils').Context} ctx the context
- * @returns {*} the result
- */
 export function response(ctx) {
-    const { id, createdAt } = ctx.result;
     return {
-        id,
-        createdAt
+        id: ctx.result.id,
+        createdAt: ctx.result.createdAt
     };
 }

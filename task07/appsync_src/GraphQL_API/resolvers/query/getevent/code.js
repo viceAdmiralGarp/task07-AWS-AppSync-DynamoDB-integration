@@ -1,33 +1,23 @@
-/**
- * Sends a request to the attached data source
- * @param {import('@aws-appsync/utils').Context} ctx the context
- * @returns {*} the request
- */
+import { util } from '@aws-appsync/utils';
+
 export function request(ctx) {
     const { id } = ctx.args;
     return {
         operation: 'GetItem',
-        key: {
-            id: { S: id }
-        }
+        key: util.dynamodb.toMapValues({ id })
     };
 }
 
-/**
- * Returns the resolver result
- * @param {import('@aws-appsync/utils').Context} ctx the context
- * @returns {*} the result
- */
 export function response(ctx) {
     if (!ctx.result) {
         util.error('Event not found', 'NotFound');
     }
 
-    const { id, userId, createdAt, payLoad } = ctx.result;
+    const payload = JSON.parse(ctx.result.payLoad);
     return {
-        id,
-        userId: parseInt(userId.N),
-        createdAt,
-        payLoad: JSON.parse(payLoad.S)
+        id: ctx.result.id,
+        userId: ctx.result.userId,
+        createdAt: ctx.result.createdAt,
+        payLoad: payload
     };
 }
