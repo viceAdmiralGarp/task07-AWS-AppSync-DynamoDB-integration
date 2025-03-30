@@ -1,10 +1,9 @@
 import { util } from '@aws-appsync/utils';
 
 export function request(ctx) {
-    const { id } = ctx.args;
     return {
         operation: 'GetItem',
-        key: util.dynamodb.toMapValues({ id })
+        key: { id: { S: ctx.args.id } }
     };
 }
 
@@ -13,12 +12,11 @@ export function response(ctx) {
         util.error('Event not found', 'NotFound');
     }
 
-    const payload = JSON.parse(ctx.result.payLoad);
-
+    const payload = JSON.parse(ctx.result.payLoad.S);
     return {
-        id: ctx.result.id,
-        userId: parseInt(ctx.result.userId),
-        createdAt: ctx.result.createdAt,
+        id: ctx.result.id.S,
+        userId: parseInt(ctx.result.userId.N),
+        createdAt: ctx.result.createdAt.S,
         payLoad: {
             meta: {
                 key1: payload.meta.key1,
