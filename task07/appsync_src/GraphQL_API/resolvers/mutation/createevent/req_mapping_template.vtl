@@ -1,15 +1,1 @@
-#set($uuid = $util.generateUUID())
-#set($dateTime = $util.time.nowISO8601())
-{
-  "version": "2018-05-29",
-  "operation": "PutItem",
-  "key": {
-    "id": $util.dynamodb.toDynamoDBJson($uuid)
-  },
-  "attributeValues": {
-    "userId": $util.dynamodb.toDynamoDBJson($ctx.args.userId),
-    "createdAt": $util.dynamodb.toDynamoDBJson($dateTime),
-    "payLoad": $util.dynamodb.toDynamoDBJson($ctx.args.payLoad)
-  }
-}
-
+{  "version": "2018-05-29",  "operation": "PutItem",  "key": {    "id": { "S": "$util.autoId()" }  },  "attributeValues": {    "userId": $util.dynamodb.toDynamoDBJson($ctx.args.userId),    "createdAt": { "S": "$util.time.nowISO8601()" },    "payLoad": $util.dynamodb.toDynamoDBJson($ctx.args.payLoad)  }}
