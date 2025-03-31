@@ -1,2 +1,7 @@
-{   "id": "$ctx.result.id",
-"createdAt": "$ctx.result.createdAt"}
+#if($ctx.error)
+  $util.error($ctx.error.message, $ctx.error.type)
+#end
+$util.toJson({
+  "id": "$ctx.result.id",
+  "createdAt": "$ctx.result.createdAt"
+})

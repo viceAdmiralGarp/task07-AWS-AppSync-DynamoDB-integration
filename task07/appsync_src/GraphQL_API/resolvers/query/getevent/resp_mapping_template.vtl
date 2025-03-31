@@ -1,1 +1,9 @@
-{  "id": "$ctx.result.id",  "userId": $ctx.result.userId,  "createdAt": "$ctx.result.createdAt",  "payLoad": $util.toJson($ctx.result.payLoad)}
+#if($ctx.error)
+  $util.error($ctx.error.message, $ctx.error.type)
+#end
+$util.toJson({
+  "id": "$ctx.result.id",
+  "userId": $ctx.result.userId,
+  "createdAt": "$ctx.result.createdAt",
+  "payLoad": $ctx.result.payLoad
+})
