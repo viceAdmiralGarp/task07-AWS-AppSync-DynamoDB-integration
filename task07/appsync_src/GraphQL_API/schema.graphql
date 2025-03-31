@@ -11,7 +11,7 @@ type Event {
     id: ID!
     userId: Int!
     createdAt: AWSDateTime!
-    payLoad: PayLoad! # Fixed case sensitivity
+    payLoad: PayLoad!
 }
 
 type Mutation {
