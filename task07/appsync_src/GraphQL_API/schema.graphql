@@ -1,4 +1,5 @@
-# Define the structure of your API with the GraphQL# schema definition language (SDL) here.type
+# Define the structure of your API with the GraphQL schema definition language (SDL) here.
+
 type Event {
   id: ID!
   userId: Int!
